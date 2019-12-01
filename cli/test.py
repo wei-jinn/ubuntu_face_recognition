@@ -114,7 +114,7 @@ try:
 		try:
 			# Convert from color to grayscale
 			# First processing of frame, so frame errors show up here
-			frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+			frame = cv2.cvtColor(frame)
 		except RuntimeError:
 			pass
 		except cv2.error:
