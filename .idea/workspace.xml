@@ -2,26 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5acb33a1-d0fc-46d3-b387-e90d7adfa8e5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/cli/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cli/analyseface.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cli/createcollection.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cli/indexface.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cli/photo/face10.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cli/photo/facialexpression.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cli/photo/jjchiew2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cli/photo/jjchiew6.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cli/photo/student.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cli/testremove.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cli/testsort.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/compar.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dataprovider.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cli/add.py" beforeDir="false" afterPath="$PROJECT_DIR$/cli/add.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cli/face01.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cli/face02.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cli/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/cli/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/compare.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pam.py" beforeDir="false" afterPath="$PROJECT_DIR$/pam.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cli/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/cli/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cli/analyseface.py" beforeDir="false" afterPath="$PROJECT_DIR$/cli/analyseface.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cli/photo/facialexpression.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/cli/photo/facialexpression.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cli/photo/student.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/cli/photo/student.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cli/testremove.py" beforeDir="false" afterPath="$PROJECT_DIR$/cli/testremove.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cli/testsort.py" beforeDir="false" afterPath="$PROJECT_DIR$/cli/testsort.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -71,7 +58,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.testremove">
+  <component name="RunManager" selected="Python.testsort">
     <configuration name="add" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="howdy" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -93,7 +80,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="createcollection" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="analyseface" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="howdy" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -105,28 +92,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/cli/createcollection.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="dataprovider" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="howdy" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/dataprovider.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/cli/analyseface.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -198,13 +164,33 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="testsort" type="PythonConfigurationType" factoryName="Python">
+      <module name="howdy" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/cli" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/cli/testsort.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.analyseface" />
         <item itemvalue="Python.searchface" />
         <item itemvalue="Python.add" />
         <item itemvalue="Python.test" />
-        <item itemvalue="Python.createcollection" />
-        <item itemvalue="Python.dataprovider" />
       </list>
     </recent_temporary>
   </component>

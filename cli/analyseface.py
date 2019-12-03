@@ -18,14 +18,16 @@ from threading import Timer
 import csv
 import boto3
 # to import the scripts from different directory
-# import sys
-# sys.path.insert(0, '/home/weijin/PycharmProjects/testhowdy/cli/')
+import sys
+sys.path.insert(0, '/home/weijin/PycharmProjects/testhowdy/cli/')
 # from cli import compare
 
 # Try to import dlib and give a nice error if we can't
 # Add should be the first point where import issues show up
 
 # print(compare.id)
+authenticated_user = "authenticated_user"
+
 try:
     import dlib
 except ImportError as err:
@@ -102,16 +104,108 @@ dark_threshold = config.getfloat("video", "dark_threshold")
 # timeout = config.getint("video", "timeout")
 # Loop through frames till we hit a timeout
 
+# start recognition
+while True:
+    # Grab a single frame of video
+    # Don't remove ret, it doesn't work without it
+    ret, frame = video_capture.read()
+    gsframe = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
+    # Create a histogram of the image with 8 values
+    hist = cv2.calcHist([gsframe], [0], None, [8], [0, 256])
+    # All values combined for percentage calculation
+    hist_total = np.sum(hist)
+
+    # If the image is fully black or the frame exceeds threshold,
+    # skip to the next frame
+    if hist_total == 0 or (hist[0] / hist_total * 100 > dark_threshold):
+        continue
+
+    frames += 1
+    print(frames)
+
+    # Get all faces from that frame as encodings
+    face_locations = face_detector(gsframe, 1)
+
+    # If we've found at least one, we can continue
+    if face_locations:
+        print("\nFace detected! Authenticating...")
+        cv2.imwrite("photo/student.jpg", frame)
+        break
+    elif len(face_locations) > 1:
+        print("Multiple faces detected, retrying")
+        continue
+    elif not face_locations:
+        print("No face detected, retrying")
+        continue
+
+
+
+# If more than 1 faces are detected we can't know wich one belongs to the user
+
+with open('admin2_credentials.csv', 'r') as input:
+    next(input)
+    reader = csv.reader(input)
+    for line in reader:
+        access_key_id = line[2]
+        secret_access_key = line[3]
+
+photo = 'photo/student.jpg'
+
+client = boto3.client('rekognition',
+                      aws_access_key_id=access_key_id,
+                      aws_secret_access_key=secret_access_key,
+                      region_name='us-east-2')
+
+with open(photo, 'rb') as source_image:
+    source_bytes = source_image.read()
+
+response = client.search_faces_by_image(
+    CollectionId='c3',
+    FaceMatchThreshold=90,
+
+    Image={'Bytes': source_bytes},
+    MaxFaces=5,
+)
+
+# print(response)
+if (response['FaceMatches'] == []):
+    print("You are unidentified. Authentication failed.")
+    sys.exit(1)
+
+elif (response['SearchedFaceConfidence'] > 99):
+    print("Similarity: " + str(response['FaceMatches'][0]['Similarity']))
+    print("Confidence: " + str(response['FaceMatches'][0]['Face']['Confidence']))
+    print("Face ID: " + response['FaceMatches'][0]['Face']['FaceId'])
+    authenticated_user = response['FaceMatches'][0]['Face']['ExternalImageId']
+
+    # Substring is searched in 'eks for geeks'
+    position = authenticated_user.find('-', 0)
+    length = len(authenticated_user)
+
+    matric = authenticated_user[0:position]
+    name = authenticated_user[position + 1:length]
+    fullname = name.replace("_", " ")
+
+    print("Welcome, " + fullname + ". Enjoy learning!")
+    # return authenticated_user
+
+else:
+    print("Authentication failed.")
+    # return "failed"
+
+# video_capture.grab()
+
 try:
         while True:
             # while frames < 60:
             # Grab a single frame of video
             # Don't remove ret, it doesn't work without it
             ret, frame = video_capture.read()
-            gsframe = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+            # gsframe = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
             # Create a histogram of the image with 8 values
-            hist = cv2.calcHist([gsframe], [0], None, [8], [0, 256])
+            hist = cv2.calcHist([frame], [0], None, [8], [0, 256])
             # All values combined for percentage calculation
             hist_total = np.sum(hist)
 
@@ -123,7 +217,7 @@ try:
             frames += 1
 
             # Get all faces from that frame as encodings
-            face_locations = face_detector(gsframe, 1)
+            face_locations = face_detector(frame, 1)
 
             # If we've found at least one, we can continue
             if face_locations:
@@ -209,6 +303,7 @@ try:
                 obj = [emotions,time]
 
                 print(obj)
+                print(authenticated_user)
                 if cv2.waitKey(1) != -1:
                     raise KeyboardInterrupt()
 

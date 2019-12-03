@@ -1,5 +1,5 @@
-# from datetime import datetime
-# dateTimeObj = datetime.now()
+from datetime import datetime
+dateTimeObj = datetime.now()
 #
 # -------------------------------Doing Bubble Sorting----------------------------------------------
 # def bubbleSort(arr):
@@ -53,16 +53,44 @@
 # resp = requests.post('http://awssdk.test:3000/getpythondata', params=userdata)
 
 # -------------------------------External ID trimming----------------------------------------------
-word = '184471-Chiew_Jia_Jing'
+# word = '184471-Chiew_Jia_Jing'
+#
+# # Substring is searched in 'eks for geeks'
+# position = word.find('-', 0)
+# length = len(word)
+# print(position)
+# print(length)
+# matric = word[0:position]
+# name = word[position+1:length]
+# fullname = name.replace("_", " ")
+#
+# print(matric)
+# print(fullname)
 
-# Substring is searched in 'eks for geeks'
-position = word.find('-', 0)
-length = len(word)
-print(position)
-print(length)
-matric = word[0:position]
-name = word[position+1:length]
-fullname = name.replace("_", " ")
+# -------------------------------External ID trimming----------------------------------------------
+# for i in range(len(emotions) - 1, -1, -1):
+                #     print(emotions[i]['Type'] + " : " + str(round(emotions[i]['Confidence'],2)) + "%")
+                # for x in emotions:
+                #     print(x['Type'] + " : " + str(round(x['Confidence'],2)))
+                # print(emotions[0]['Type'])
+                # print("Time taken : " + str(dateTimeObj))str(dateTimeObj)
+arr = [{'Type': 'FEAR', 'Confidence': 0.006524436175823212}, {'Type': 'HAPPY', 'Confidence': 0.023475509136915207}, {'Type': 'ANGRY', 'Confidence': 0.057014573365449905}, {'Type': 'SURPRISED', 'Confidence': 0.06289278715848923}, {'Type': 'DISGUSTED', 'Confidence': 0.06303147971630096}, {'Type': 'CONFUSED', 'Confidence': 0.45292866230010986}, {'Type': 'SAD', 'Confidence': 0.501514196395874}, {'Type': 'CALM', 'Confidence': 98.83262634277344}]
 
-print(matric)
-print(fullname)
+matric = 184471
+datetime = dateTimeObj
+
+emotions = [{'matric': matric}]
+
+print(arr)
+
+for i in range(len(arr) - 1, -1, -1):
+
+    emotions.append({arr[i]['Type'].lower() : str(round(arr[i]['Confidence'],2))})
+                # for x in arr:
+                #     print(x['Type'] + " : " + str(round(x['Confidence'],2))
+
+emotions.append({'created_at' : str(dateTimeObj)})
+
+print(emotions)
+
+

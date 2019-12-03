@@ -2,9 +2,9 @@ import os.path
 from threading import Timer
 
 # to import the scripts from different directory
-import sys
-sys.path.insert(0, '/home/weijin/PycharmProjects/')
-from testhowdy import compare
+# import sys
+# sys.path.insert(0, '/home/weijin/PycharmProjects/')
+# from testhowdy import compare
 # from testhowdy import dataprovider
 
 # ans = dataprovider.simpleCalculator()
