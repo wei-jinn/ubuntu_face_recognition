@@ -9,6 +9,9 @@ import configparser
 import builtins
 import cv2
 import numpy as np
+from threading import Timer
+import csv
+import boto3
 
 # Try to import dlib and give a nice error if we can't
 # Add should be the first point where import issues show up
@@ -48,6 +51,14 @@ else:
 pose_predictor = dlib.shape_predictor(path + "/../dlib-data/shape_predictor_5_face_landmarks.dat")
 face_encoder = dlib.face_recognition_model_v1(path + "/../dlib-data/dlib_face_recognition_resnet_model_v1.dat")
 
+if os.path.isfile('photo/student.jpg'):
+    print ("Previous file exists")
+    os.remove('photo/student.jpg')
+    print('Cleared')
+else:
+    print ("Previous file not exist")
+
+print("___________________________________")
 print("Adding face model for the user ")
 
 # Start video capture on the IR camera through OpenCV
@@ -65,15 +76,23 @@ if fh != -1:
 # Request a frame to wake the camera up
 video_capture.grab()
 
-print("\nPlease look straight into the camera, it is taking frames now")
+print("\nWe are adding your face now. Please look straight to the camera.")
 
 # Give the user time to read
-time.sleep(2)
+time.sleep(4)
 
 frames = 0
 dark_threshold = config.getfloat("video", "dark_threshold")
 
 # Loop through frames till we hit a timeout
+
+
+#
+# def capture():
+#     print("\nFace found!")
+#     cv2.imwrite("face10.jpg", frame)
+
+# a = Timer(2.0, capture)
 
 while frames < 60:
     # Grab a single frame of video
@@ -98,8 +117,70 @@ while frames < 60:
 
     # If we've found at least one, we can continue
     if face_locations:
-            print("\nFace found!")
-            cv2.imwrite("face02.jpg", frame)
+            print("\nFace detected! Indexing...")
+            cv2.imwrite("photo/student.jpg", frame)
             break
 
 video_capture.release()
+
+# If more than 1 faces are detected we can't know wich one belongs to the user
+if len(face_locations) > 1:
+    print("Multiple faces detected, aborting")
+    sys.exit(1)
+elif not face_locations:
+    print("No face detected, aborting")
+    sys.exit(1)
+
+with open('admin2_credentials.csv', 'r') as input:
+    next(input)
+    reader = csv.reader(input)
+    for line in reader:
+        access_key_id = line[2]
+        secret_access_key = line[3]
+
+photo = 'photo/student.jpg'
+eid = "184471-Chiew_Jia_Jing"
+
+
+client = boto3.client('rekognition',
+                      aws_access_key_id = access_key_id,
+                      aws_secret_access_key = secret_access_key,
+                      region_name = 'us-east-2')
+
+
+with open(photo, 'rb') as source_image:
+    source_bytes = source_image.read()
+
+response = client.index_faces(
+    CollectionId='c3',
+    DetectionAttributes=[
+        'DEFAULT'
+    ],
+    Image={'Bytes': source_bytes},
+    ExternalImageId = eid,
+    MaxFaces=1,
+)
+
+if(response):
+    word = eid
+    # Substring is searched in 'eks for geeks'
+    position = word.find('-', 0)
+    length = len(word)
+    print(position)
+    print(length)
+    matric = word[0:position]
+    name = word[position + 1:length]
+    fullname = name.replace("_", " ")
+    print("Dear " + name + ", your face has been added successfully.")
+else:
+    print("Face adding failed.")
+
+
+
+
+
+
+#
+#
+
+

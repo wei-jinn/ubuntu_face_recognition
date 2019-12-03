@@ -5,7 +5,6 @@ import subprocess
 import sys
 import os
 import glob
-
 # pam-python is running python 2, so we use the old module here
 import ConfigParser
 
