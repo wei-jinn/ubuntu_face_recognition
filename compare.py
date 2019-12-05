@@ -21,6 +21,9 @@ import boto3
 # Add should be the first point where import issues show up
 
 id = "id"
+timings = {
+	"st": time.time()
+}
 def match():
     id = 'in match'
     try:
@@ -66,9 +69,9 @@ def match():
         video_capture.release()
         sys.exit(status)
 
-    if os.path.isfile('/cli/photo/student.jpg'):
+    if os.path.isfile('photo/student.jpg'):
         print ("Previous file exists")
-        os.remove('/cli/photo/student.jpg')
+        # os.remove('cli/photo/student.jpg')
         print('Cleared')
     else:
         print ("Previous file not exist")
@@ -97,6 +100,7 @@ def match():
     time.sleep(3)
 
     frames = 0
+    timings["fr"] = time.time()
 
     dark_threshold = config.getfloat("video", "dark_threshold")
     timeout = config.getint("video", "timeout")
@@ -118,9 +122,19 @@ def match():
     # a = Timer(2.0, capture)
 
     while frames < 60:
+
+        # Stop if we've exceded the time limit
+
+
+
         # Grab a single frame of video
         # Don't remove ret, it doesn't work without it
         ret, frame = video_capture.read()
+
+        if frames == 1 and ret is False:
+            print("Could not read from camera")
+            exit(12)
+
         gsframe = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
         # Create a histogram of the image with 8 values
@@ -136,14 +150,19 @@ def match():
         frames += 1
         print(frames)
 
+        if frames > 50:
+            stop(11)
+
         # Get all faces from that frame as encodings
         face_locations = face_detector(gsframe, 1)
 
         # If we've found at least one, we can continue
         if face_locations:
                 print("\nFace detected! Authenticating...")
-                cv2.imwrite("cli/photo/student.jpg", frame)
+                cv2.imwrite("photo/student.jpg", frame)
                 break
+
+
 
     video_capture.release()
 
@@ -187,7 +206,7 @@ def match():
         print("You are unidentified. Authentication failed.")
         sys.exit(1)
 
-    elif(response['SearchedFaceConfidence'] > 99):
+    elif(response['SearchedFaceConfidence'] > 90):
         print("Similarity: " + str(response['FaceMatches'][0]['Similarity']))
         print("Confidence: " + str(response['FaceMatches'][0]['Face']['Confidence']))
         print("Face ID: " + response['FaceMatches'][0]['Face']['FaceId'])
@@ -203,7 +222,8 @@ def match():
         fullname = name.replace("_", " ")
 
         print("Welcome, " + fullname + ". Enjoy learning!")
-        return authenticated_user
+
+        stop(0)
 
     else:
         print("Authentication failed.")
@@ -218,7 +238,7 @@ def test():
 def tryf():
     print('trying function')
 
-# match()
+match()
 
 
 # print("Hello, no function is invoked.")
