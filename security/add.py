@@ -51,9 +51,9 @@ else:
 pose_predictor = dlib.shape_predictor(path + "/../dlib-data/shape_predictor_5_face_landmarks.dat")
 face_encoder = dlib.face_recognition_model_v1(path + "/../dlib-data/dlib_face_recognition_resnet_model_v1.dat")
 
-if os.path.isfile('photo/student.jpg'):
+if os.path.isfile('/lib/security/howdy/photo/student.jpg'):
     print ("Previous file exists")
-    os.remove('photo/student.jpg')
+    os.remove('/lib/security/howdy/photo/student.jpg')
     print('Cleared')
 else:
     print ("Previous file not exist")
@@ -118,7 +118,7 @@ while frames < 60:
     # If we've found at least one, we can continue
     if face_locations:
             print("\nFace detected! Indexing...")
-            cv2.imwrite("photo/student.jpg", frame)
+            cv2.imwrite("/lib/security/howdy/photo/student.jpg", frame)
             break
 
 video_capture.release()
@@ -131,15 +131,16 @@ elif not face_locations:
     print("No face detected, aborting")
     sys.exit(1)
 
-with open('admin2_credentials.csv', 'r') as input:
+with open('/lib/security/howdy/admin2_credentials.csv', 'r') as input:
     next(input)
     reader = csv.reader(input)
     for line in reader:
         access_key_id = line[2]
         secret_access_key = line[3]
 
-photo = 'photo/student.jpg'
-eid = "GS54609-Lim_Swee_Phang"
+photo = '/lib/security/howdy/photo/student.jpg'
+user = builtins.howdy_user
+eid = user
 
 
 client = boto3.client('rekognition',

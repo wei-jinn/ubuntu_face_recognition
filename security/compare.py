@@ -25,7 +25,6 @@ timings = {
 	"st": time.time()
 }
 def match():
-
     id = 'in match'
     try:
         import dlib
@@ -70,16 +69,19 @@ def match():
         video_capture.release()
         sys.exit(status)
 
-    if os.path.isfile('/ home / weijin / PycharmProjects / testhowdy / pam'):
-
-        print ("Previous file exists")
-        # os.remove('cli/photo/student.jpg')
-        print('Cleared')
-    else:
-        print ("Previous file not exist")
+    # if os.path.isfile('/lib/security/howdy/photo/student.jpg'):
+    #     print ("Previous file exists")
+    #     # os.remove('cli/photo/student.jpg')
+    #     print('Cleared')
+    # else:
+    #     print ("Previous file not exist")
 
     print("___________________________________")
     print("Welcome to Putra Future Classroom")
+
+    timings = {
+        "st": time.time()
+    }
 
     # Start video capture on the IR camera through OpenCV
     video_capture = cv2.VideoCapture(config.get("video", "device_path"))
@@ -99,7 +101,7 @@ def match():
     print("\nFace recognition is activated. Please look straight to the camera")
 
     # Give the user time to read
-    time.sleep(3)
+    # time.sleep(3)
 
     frames = 0
     timings["fr"] = time.time()
@@ -161,7 +163,7 @@ def match():
         # If we've found at least one, we can continue
         if face_locations:
                 print("\nFace detected! Authenticating...")
-                cv2.imwrite("photo/student.jpg", frame)
+                cv2.imwrite("/lib/security/howdy/photo/student.jpg", frame)
                 break
 
 
@@ -176,14 +178,14 @@ def match():
         print("No face detected, aborting")
         sys.exit(1)
 
-    with open('admin2_credentials.csv', 'r') as input:
+    with open('/lib/security/howdy/admin2_credentials.csv', 'r') as input:
         next(input)
         reader = csv.reader(input)
         for line in reader:
             access_key_id = line[2]
             secret_access_key = line[3]
 
-    photo = 'photo/student.jpg'
+    photo = '/lib/security/howdy/photo/student.jpg'
 
 
     client = boto3.client('rekognition',
@@ -225,7 +227,13 @@ def match():
 
         print("Welcome, " + fullname + ". Enjoy learning!")
 
+        # username = "Chiew Jia Jing"
+        f = open('/lib/security/howdy/username.txt', "w+")
+        f.write(fullname)
+        f.close()
 
+        timings["used"] = time.time() - timings["st"]
+        print(str(round(timings["used"], 2)) + " seconds used")
         stop(0)
 
     else:
@@ -238,7 +246,7 @@ def match():
 def test():
     print('testing function')
 
-def tryf():
+def getName():
     print('trying function')
 
 match()

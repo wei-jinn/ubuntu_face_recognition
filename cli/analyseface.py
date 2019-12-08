@@ -96,7 +96,7 @@ video_capture.grab()
 
 
 # Give the user time to read
-time.sleep(1)
+time.sleep(0)
 
 frames = 0
 
@@ -293,17 +293,17 @@ try:
             if(response):
                 emotions = response['FaceDetails'][0]['Emotions']
                 bubbleSort(emotions)
-                # for i in range(len(emotions) - 1, -1, -1):
-                #     print(emotions[i]['Type'] + " : " + str(round(emotions[i]['Confidence'],2)) + "%")
-                # for x in emotions:
-                #     print(x['Type'] + " : " + str(round(x['Confidence'],2)))
+                for i in range(len(emotions) - 1, -1, -1):
+                    print(emotions[i]['Type'] + " : " + str(round(emotions[i]['Confidence'],2)) + "%")
+                for x in emotions:
+                    print(x['Type'] + " : " + str(round(x['Confidence'],2)))
                 # print(emotions[0]['Type'])
-                # print("Time taken : " + str(dateTimeObj))str(dateTimeObj)
-                time = {'Timetaken' : str(dateTimeObj)}
-                obj = [emotions,time]
-
-                print(obj)
-                print(authenticated_user)
+                # print("Time taken : " + str(dateTimeObj))
+                # time = {'Timetaken' : str(dateTimeObj)}
+                # obj = [emotions,time]
+                #
+                # print(obj)
+                # print(authenticated_user)
                 if cv2.waitKey(1) != -1:
                     raise KeyboardInterrupt()
 
