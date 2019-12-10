@@ -34,14 +34,14 @@ client = boto3.client('rekognition',
 
 # print(response)
 
-# response = client.list_faces(
-#     CollectionId='c3'
-# )
-# print(response)
-
-response = client.delete_faces(
-    CollectionId='c3',
-    FaceIds=[
-    '92c33a7d-04f8-4d53-8020-e1f9a256543f',
-    ]
+response = client.list_faces(
+    CollectionId='c3'
 )
+print(response)
+
+# response = client.delete_faces(
+#     CollectionId='c3',
+#     FaceIds=[
+#     '92c33a7d-04f8-4d53-8020-e1f9a256543f',
+#     ]
+# )
