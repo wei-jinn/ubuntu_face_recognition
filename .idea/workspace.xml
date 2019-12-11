@@ -2,12 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5acb33a1-d0fc-46d3-b387-e90d7adfa8e5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/cli/detectface.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cli/photo/detect.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cli/sayhello.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cli/username.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/username.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cli/createcollection.py" beforeDir="false" afterPath="$PROJECT_DIR$/cli/createcollection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cli/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/cli/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cli/detectface.py" beforeDir="false" afterPath="$PROJECT_DIR$/cli/detectface.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cli/photo/student.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/cli/photo/student.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cli/sayhello.py" beforeDir="false" afterPath="$PROJECT_DIR$/cli/sayhello.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/compare.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,18 +43,19 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/cli/photo" />
+      <recent name="$PROJECT_DIR$/cli" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/cli" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/cli/photo" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/cli/photo" />
-      <recent name="$PROJECT_DIR$/cli" />
-    </key>
   </component>
   <component name="RunManager" selected="Python.sayhello">
-    <configuration name="analyseface" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="compare (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="howdy" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -61,11 +63,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/cli" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/cli/analyseface.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/compare.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -74,7 +76,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="createcollection" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="compare" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="howdy" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -82,11 +84,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/cli" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$/Desktop" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/cli/createcollection.py" />
+      <option name="SCRIPT_NAME" value="$USER_HOME$/Desktop/compare.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -203,10 +205,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.sayhello" />
+        <item itemvalue="Python.compare (1)" />
+        <item itemvalue="Python.compare" />
         <item itemvalue="Python.detectface (1)" />
         <item itemvalue="Python.detectface" />
-        <item itemvalue="Python.createcollection" />
-        <item itemvalue="Python.analyseface" />
       </list>
     </recent_temporary>
   </component>
@@ -252,39 +254,55 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1274" height="214" key="GridCell.Tab.0.bottom" timestamp="1575888147255">
+    <state width="1274" height="184" key="GridCell.Tab.0.bottom" timestamp="1576062724039">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
     <state width="1274" height="214" key="GridCell.Tab.0.bottom/67.27.1299.741/1366.0.1366.768@1366.0.1366.768" timestamp="1575887082120" />
-    <state width="1274" height="214" key="GridCell.Tab.0.bottom/67.27.1299.741/1366.0.1366.768@67.27.1299.741" timestamp="1575888147255" />
+    <state width="1274" height="184" key="GridCell.Tab.0.bottom/67.27.1299.741/1366.0.1366.768@67.27.1299.741" timestamp="1576062724039" />
     <state width="1274" height="140" key="GridCell.Tab.0.bottom/67.27.1299.741@67.27.1299.741" timestamp="1575798135961" />
     <state width="1274" height="207" key="GridCell.Tab.0.bottom/67.27.2665.741@67.27.2665.741" timestamp="1575882464815" />
-    <state width="1274" height="214" key="GridCell.Tab.0.center" timestamp="1575888147255">
+    <state width="1274" height="184" key="GridCell.Tab.0.center" timestamp="1576062724039">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
     <state width="1274" height="214" key="GridCell.Tab.0.center/67.27.1299.741/1366.0.1366.768@1366.0.1366.768" timestamp="1575887082120" />
-    <state width="1274" height="214" key="GridCell.Tab.0.center/67.27.1299.741/1366.0.1366.768@67.27.1299.741" timestamp="1575888147255" />
+    <state width="1274" height="184" key="GridCell.Tab.0.center/67.27.1299.741/1366.0.1366.768@67.27.1299.741" timestamp="1576062724039" />
     <state width="1274" height="140" key="GridCell.Tab.0.center/67.27.1299.741@67.27.1299.741" timestamp="1575798135960" />
     <state width="1274" height="207" key="GridCell.Tab.0.center/67.27.2665.741@67.27.2665.741" timestamp="1575882464814" />
-    <state width="1274" height="214" key="GridCell.Tab.0.left" timestamp="1575888147254">
+    <state width="1274" height="184" key="GridCell.Tab.0.left" timestamp="1576062724039">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
     <state width="1274" height="214" key="GridCell.Tab.0.left/67.27.1299.741/1366.0.1366.768@1366.0.1366.768" timestamp="1575887082119" />
-    <state width="1274" height="214" key="GridCell.Tab.0.left/67.27.1299.741/1366.0.1366.768@67.27.1299.741" timestamp="1575888147254" />
+    <state width="1274" height="184" key="GridCell.Tab.0.left/67.27.1299.741/1366.0.1366.768@67.27.1299.741" timestamp="1576062724039" />
     <state width="1274" height="140" key="GridCell.Tab.0.left/67.27.1299.741@67.27.1299.741" timestamp="1575798135959" />
     <state width="1274" height="207" key="GridCell.Tab.0.left/67.27.2665.741@67.27.2665.741" timestamp="1575882464814" />
-    <state width="1274" height="214" key="GridCell.Tab.0.right" timestamp="1575888147255">
+    <state width="1274" height="184" key="GridCell.Tab.0.right" timestamp="1576062724039">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
     <state width="1274" height="214" key="GridCell.Tab.0.right/67.27.1299.741/1366.0.1366.768@1366.0.1366.768" timestamp="1575887082120" />
-    <state width="1274" height="214" key="GridCell.Tab.0.right/67.27.1299.741/1366.0.1366.768@67.27.1299.741" timestamp="1575888147255" />
+    <state width="1274" height="184" key="GridCell.Tab.0.right/67.27.1299.741/1366.0.1366.768@67.27.1299.741" timestamp="1576062724039" />
     <state width="1274" height="140" key="GridCell.Tab.0.right/67.27.1299.741@67.27.1299.741" timestamp="1575798135961" />
     <state width="1274" height="207" key="GridCell.Tab.0.right/67.27.2665.741@67.27.2665.741" timestamp="1575882464815" />
-    <state x="429" y="230" key="com.intellij.ide.util.TipDialog" timestamp="1575998085362">
+    <state width="1274" height="184" key="GridCell.Tab.1.bottom" timestamp="1576062724040">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
-    <state x="1747" y="210" key="com.intellij.ide.util.TipDialog/67.27.1299.741/1366.0.1366.768@1366.0.1366.768" timestamp="1575882488668" />
-    <state x="429" y="230" key="com.intellij.ide.util.TipDialog/67.27.1299.741/1366.0.1366.768@67.27.1299.741" timestamp="1575998085362" />
+    <state width="1274" height="184" key="GridCell.Tab.1.bottom/67.27.1299.741/1366.0.1366.768@67.27.1299.741" timestamp="1576062724040" />
+    <state width="1274" height="184" key="GridCell.Tab.1.center" timestamp="1576062724039">
+      <screen x="67" y="27" width="1299" height="741" />
+    </state>
+    <state width="1274" height="184" key="GridCell.Tab.1.center/67.27.1299.741/1366.0.1366.768@67.27.1299.741" timestamp="1576062724039" />
+    <state width="1274" height="184" key="GridCell.Tab.1.left" timestamp="1576062724039">
+      <screen x="67" y="27" width="1299" height="741" />
+    </state>
+    <state width="1274" height="184" key="GridCell.Tab.1.left/67.27.1299.741/1366.0.1366.768@67.27.1299.741" timestamp="1576062724039" />
+    <state width="1274" height="184" key="GridCell.Tab.1.right" timestamp="1576062724040">
+      <screen x="67" y="27" width="1299" height="741" />
+    </state>
+    <state width="1274" height="184" key="GridCell.Tab.1.right/67.27.1299.741/1366.0.1366.768@67.27.1299.741" timestamp="1576062724040" />
+    <state x="429" y="230" key="com.intellij.ide.util.TipDialog" timestamp="1576076682696">
+      <screen x="67" y="27" width="1299" height="741" />
+    </state>
+    <state x="1747" y="210" key="com.intellij.ide.util.TipDialog/67.27.1299.741/1366.0.1366.768@1366.0.1366.768" timestamp="1576050526673" />
+    <state x="429" y="230" key="com.intellij.ide.util.TipDialog/67.27.1299.741/1366.0.1366.768@67.27.1299.741" timestamp="1576076682696" />
     <state x="429" y="230" key="com.intellij.ide.util.TipDialog/67.27.1299.741@67.27.1299.741" timestamp="1575864874303" />
     <state x="2227" y="50" width="421" height="638" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1575882943578">
       <screen x="1366" y="0" width="1366" height="768" />

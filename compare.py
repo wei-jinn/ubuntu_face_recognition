@@ -70,7 +70,7 @@ def match():
         video_capture.release()
         sys.exit(status)
 
-    if os.path.isfile('/ home / weijin / PycharmProjects / testhowdy / pam'):
+    if os.path.isfile('/home/weijin/PycharmProjects/testhowdy/cli/photo/student.jpg'):
 
         print ("Previous file exists")
         # os.remove('cli/photo/student.jpg')
@@ -161,7 +161,7 @@ def match():
         # If we've found at least one, we can continue
         if face_locations:
                 print("\nFace detected! Authenticating...")
-                cv2.imwrite("photo/student.jpg", frame)
+                cv2.imwrite("/home/weijin/PycharmProjects/testhowdy/cli/photo/student.jpg", frame)
                 break
 
 
@@ -176,14 +176,14 @@ def match():
         print("No face detected, aborting")
         sys.exit(1)
 
-    with open('admin2_credentials.csv', 'r') as input:
+    with open('/home/weijin/PycharmProjects/testhowdy/cli/admin2_credentials.csv', 'r') as input:
         next(input)
         reader = csv.reader(input)
         for line in reader:
             access_key_id = line[2]
             secret_access_key = line[3]
 
-    photo = 'photo/student.jpg'
+    photo = '/home/weijin/PycharmProjects/testhowdy/cli/photo/student.jpg'
 
 
     client = boto3.client('rekognition',
@@ -224,9 +224,10 @@ def match():
         fullname = name.replace("_", " ")
 
         print("Welcome, " + fullname + ". Enjoy learning!")
+        return "return value is here"
 
+        # stop(0)
 
-        stop(0)
 
     else:
         print("Authentication failed.")
@@ -241,7 +242,7 @@ def test():
 def tryf():
     print('trying function')
 
-match()
+print(match())
 
 
 # print("Hello, no function is invoked.")

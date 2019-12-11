@@ -1,24 +1,24 @@
 # Detect face and save as photo
 # Import required modules
 
-import time
-import os
-import sys
-import json
-import configparser
-import builtins
-import cv2
-import numpy as np
-from threading import Timer
-import csv
-import boto3
-import dlib
+# import time
+# import os
+# import sys
+# import json
+# import configparser
+# import builtins
+# import cv2
+# import numpy as np
+# from threading import Timer
+# import csv
+# import boto3
+# import dlib
 
 # Try to import dlib and give a nice error if we can't
 # Add should be the first point where import issues show up
 
-def detect():
-    msg = "No result yet"
+# def detect():
+#     msg = "No result yet"
     # try:
     #     import dlib
     # except ImportError as err:shell_exec('cd');
@@ -136,10 +136,11 @@ def detect():
     #         continue
     #
     # video_capture.release()
+    #
+    # print(msg)
+    # return msg
 
-    print(msg)
-    return msg
 
 
-detect()
 # If more than 1 faces are detected we can't know wich one belongs to the user
+print("Get photo here")
