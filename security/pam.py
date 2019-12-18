@@ -9,6 +9,8 @@ import glob
 import ConfigParser
 
 # Read config from disk
+import requests
+
 config = ConfigParser.ConfigParser()
 config.read(os.path.dirname(os.path.abspath(__file__)) + "/config.ini")
 
@@ -58,7 +60,29 @@ def doAuth(pamh):
 			#pamh.conversation(pamh.Message(pamh.PAM_TEXT_INFO, "Identified face as " + pamh.get_user()))
 			r = open('/lib/security/howdy/username.txt', "r")
 			contents = r.read()
-			pamh.conversation(pamh.Message(pamh.PAM_TEXT_INFO, "Identified face as " + contents))
+
+			position = contents.find('-', 0)
+			length = len(contents)
+			position_matric = contents.find(':', 0)
+
+			uid = contents[0:position]
+			name = contents[position + 1:position_matric]
+			matric = contents[position_matric + 1:length]
+			fullname = name.replace("_", " ")
+
+			# matric_data = {'student_id':matric
+			#         }
+			#
+			# sendmatric = requests.post(url='https://pure-headland-78653.herokuapp.com/api/resources/emotion', data=matric_data)
+			# print(sendmatric)
+			#
+			# uid_data = {'id': uid
+			# 			   }
+			#
+			# sendmatric = requests.post(url='https://pure-headland-78653.herokuapp.com/api/resources/emotion', data=matric_data)
+			# print(sendmatric)
+
+			pamh.conversation(pamh.Message(pamh.PAM_TEXT_INFO, "Authenticated user: " + fullname + "-" + matric))
 
 
 		return pamh.PAM_SUCCESS
@@ -70,6 +94,8 @@ def doAuth(pamh):
 
 def pam_sm_authenticate(pamh, flags, args):
 	"""Called by PAM when the user wants to authenticate, in sudo for example"""
+	# return doAuth(pamh)
+	# Abort is Howdy is disabled
 	return doAuth(pamh)
 
 

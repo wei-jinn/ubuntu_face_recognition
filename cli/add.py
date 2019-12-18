@@ -131,7 +131,7 @@ elif not face_locations:
     print("No face detected, aborting")
     sys.exit(1)
 
-with open('admin2_credentials.csv', 'r') as input:
+with open('/home/weijin/PycharmProjects/testhowdy/cli/admin2_credentials.csv', 'r') as input:
     next(input)
     reader = csv.reader(input)
     for line in reader:
@@ -139,7 +139,7 @@ with open('admin2_credentials.csv', 'r') as input:
         secret_access_key = line[3]
 
 photo = 'photo/student.jpg'
-eid = "GS54609-Lim_Swee_Phang"
+eid = "5-Harvard:189090"
 
 
 client = boto3.client('rekognition',
@@ -163,15 +163,17 @@ response = client.index_faces(
 
 if(response):
     word = eid
-    # Substring is searched in 'eks for geeks'
+
     position = word.find('-', 0)
     length = len(word)
-    print(position)
-    print(length)
-    matric = word[0:position]
-    name = word[position + 1:length]
+    position_matric = word.find(':', 0)
+
+    uid = word[0:position]
+    name = word[position + 1:position_matric]
+    matric = word[position_matric + 1:length]
     fullname = name.replace("_", " ")
     print("Dear " + name + ", your face has been added successfully.")
+    print("matric number: " + matric)
 else:
     print("Face adding failed.")
 

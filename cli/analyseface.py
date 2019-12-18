@@ -5,6 +5,7 @@
 #
 
 # Import required modules
+import signal
 import time
 from datetime import datetime
 import os
@@ -19,23 +20,22 @@ import csv
 import boto3
 # to import the scripts from different directory
 import sys
-sys.path.insert(0, '/home/weijin/PycharmProjects/testhowdy/cli/')
-# from cli import compare
+import requests
+import dlib
 
 # Try to import dlib and give a nice error if we can't
 # Add should be the first point where import issues show up
 
-# print(compare.id)
 authenticated_user = "authenticated_user"
 
-try:
-    import dlib
-except ImportError as err:
-    print(err)
-
-    print("\nCan't import the dlib module, check the output of")
-    print("pip3 show dlib")
-    sys.exit(1)
+# try:
+#     import dlib
+# except ImportError as err:
+#     print(err)
+#
+#     print("\nCan't import the dlib module, check the output of")
+#     print("pip3 show dlib")
+#     sys.exit(1)
 
 # Get the absolute path to the current directory
 path = os.path.abspath(__file__ + "/..")
@@ -69,9 +69,9 @@ def stop(status):
     video_capture.release()
     sys.exit(status)
 
-if os.path.isfile('photo/facialexpression.jpg'):
+if os.path.isfile('/home/weijin/PycharmProjects/testhowdy/cli/photo/facialexpression.jpg'):
     print ("Previous file exists")
-    os.remove('photo/facialexpression.jpg')
+    os.remove('/home/weijin/PycharmProjects/testhowdy/cli/photo/facialexpression.jpg')
     print('Cleared')
 else:
     print ("Previous file not exist")
@@ -108,6 +108,7 @@ dark_threshold = config.getfloat("video", "dark_threshold")
 while True:
     # Grab a single frame of video
     # Don't remove ret, it doesn't work without it
+
     ret, frame = video_capture.read()
     gsframe = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
@@ -128,9 +129,9 @@ while True:
     face_locations = face_detector(gsframe, 1)
 
     # If we've found at least one, we can continue
-    if face_locations:
+    if len(face_locations)==1:
         print("\nFace detected! Authenticating...")
-        cv2.imwrite("photo/student.jpg", frame)
+        cv2.imwrite("/home/weijin/PycharmProjects/testhowdy/cli/photo/student.jpg", frame)
         break
     elif len(face_locations) > 1:
         print("Multiple faces detected, retrying")
@@ -141,16 +142,17 @@ while True:
 
 
 
+
 # If more than 1 faces are detected we can't know wich one belongs to the user
 
-with open('admin2_credentials.csv', 'r') as input:
+with open('/home/weijin/PycharmProjects/testhowdy/cli/admin2_credentials.csv', 'r') as input:
     next(input)
     reader = csv.reader(input)
     for line in reader:
         access_key_id = line[2]
         secret_access_key = line[3]
 
-photo = 'photo/student.jpg'
+photo = '/home/weijin/PycharmProjects/testhowdy/cli/photo/student.jpg'
 
 client = boto3.client('rekognition',
                       aws_access_key_id=access_key_id,
@@ -183,7 +185,7 @@ elif (response['SearchedFaceConfidence'] > 99):
     position = authenticated_user.find('-', 0)
     length = len(authenticated_user)
 
-    matric = authenticated_user[0:position]
+    matric = int(authenticated_user[0:position])
     name = authenticated_user[position + 1:length]
     fullname = name.replace("_", " ")
 
@@ -194,13 +196,49 @@ else:
     print("Authentication failed.")
     # return "failed"
 
+video_capture.release()
 # video_capture.grab()
+pid = 0
+
+def receive_signal(signum, stack):
+    print ('Received:', signum)
+    print("I got your signal, let me sleep awhile")
+    video_capture.release()
+    signal.pause()
+    # time.sleep(20)
+
+
+def signal_start(signum, stack):
+
+    print("Let's go back to work")
+    time.sleep(1)
+
+
+
+
+signal.signal(signal.SIGUSR1, receive_signal)
+signal.signal(signal.SIGUSR2, signal_start)
 
 try:
         while True:
+
             # while frames < 60:
             # Grab a single frame of video
             # Don't remove ret, it doesn't work without it
+
+            video_capture = cv2.VideoCapture(config.get("video", "device_path"))
+            print(video_capture)
+            # Set the frame width and height if requested
+            fw = config.getint("video", "frame_width", fallback=-1)
+            fh = config.getint("video", "frame_height", fallback=-1)
+            if fw != -1:
+                video_capture.set(cv2.CAP_PROP_FRAME_WIDTH, fw)
+
+            if fh != -1:
+                video_capture.set(cv2.CAP_PROP_FRAME_HEIGHT, fh)
+
+
+            video_capture.grab()
             ret, frame = video_capture.read()
             # gsframe = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
@@ -223,12 +261,13 @@ try:
             if face_locations:
                     print("\nFace detected! Analysing...")
                     print(frames)
-                    cv2.imwrite("photo/facialexpression.jpg", frame)
+                    cv2.imwrite("/home/weijin/PycharmProjects/testhowdy/cli/photo/facialexpression.jpg", frame)
                     dateTimeObj = datetime.now()
 
             else:
                 print("No face detected.")
                 print(frames)
+                video_capture.release()
                 continue
 
 
@@ -241,14 +280,16 @@ try:
         #     print("No face detected, aborting")
         #     sys.exit(1)
 
-            with open('admin2_credentials.csv', 'r') as input:
+            video_capture.release()
+
+            with open('/home/weijin/PycharmProjects/testhowdy/cli/admin2_credentials.csv', 'r') as input:
                 next(input)
                 reader = csv.reader(input)
                 for line in reader:
                     access_key_id = line[2]
                     secret_access_key = line[3]
 
-            photo = 'photo/facialexpression.jpg'
+            photo = '/home/weijin/PycharmProjects/testhowdy/cli/photo/facialexpression.jpg'
 
 
             client = boto3.client('rekognition',
@@ -292,11 +333,31 @@ try:
 
             if(response):
                 emotions = response['FaceDetails'][0]['Emotions']
+
                 bubbleSort(emotions)
                 for i in range(len(emotions) - 1, -1, -1):
-                    print(emotions[i]['Type'] + " : " + str(round(emotions[i]['Confidence'],2)) + "%")
-                for x in emotions:
-                    print(x['Type'] + " : " + str(round(x['Confidence'],2)))
+                    print((emotions[i]['Type']).lower() + " : " + str(round(emotions[i]['Confidence'],2)))
+                print(dateTimeObj)
+
+
+                # data = {'student_id':matric,
+                #         (emotions[0]['Type']).lower(): round(emotions[0]['Confidence'],2),
+                #         (emotions[1]['Type']).lower(): round(emotions[1]['Confidence'],2),
+                #         (emotions[2]['Type']).lower(): round(emotions[2]['Confidence'],2),
+                #         (emotions[3]['Type']).lower(): round(emotions[3]['Confidence'],2),
+                #         (emotions[4]['Type']).lower(): round(emotions[4]['Confidence'],2),
+                #         (emotions[5]['Type']).lower(): round(emotions[5]['Confidence'],2),
+                #         (emotions[6]['Type']).lower(): round(emotions[6]['Confidence'],2),
+                #         (emotions[7]['Type']).lower(): round(emotions[7]['Confidence'],2),
+                #         }
+                #
+                #
+                # print(data)
+
+
+
+                # for x in emotions:
+                #     print(x['Type'] + " : " + str(round(x['Confidence'],2)))
                 # print(emotions[0]['Type'])
                 # print("Time taken : " + str(dateTimeObj))
                 # time = {'Timetaken' : str(dateTimeObj)}
@@ -304,6 +365,24 @@ try:
                 #
                 # print(obj)
                 # print(authenticated_user)
+
+                # # data to be sent to api
+                # data = {'api_dev_key': API_KEY,
+                #         'api_option': 'paste',
+                #         'api_paste_code': source_code,
+                #         'api_paste_format': 'python'}
+                #
+                # sending post request and saving response as response object
+
+                # r = requests.post(url='https://pure-headland-78653.herokuapp.com/api/resources/emotion', data=data)
+                # print(r)
+
+                # g = requests.get(url='https://pure-headland-78653.herokuapp.com/api/resources/emotion')
+                # getdata = g.json()
+                # print(getdata)
+
+
+
                 if cv2.waitKey(1) != -1:
                     raise KeyboardInterrupt()
 

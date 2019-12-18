@@ -20,6 +20,9 @@ import boto3
 # Try to import dlib and give a nice error if we can't
 # Add should be the first point where import issues show up
 
+
+os.system('pkill -9 -f analyseface.py')
+
 id = "id"
 timings = {
 	"st": time.time()
@@ -199,7 +202,7 @@ def match():
 
     response = client.search_faces_by_image(
         CollectionId='c3',
-        FaceMatchThreshold=90,
+        FaceMatchThreshold=99,
 
         Image={'Bytes': source_bytes},
         MaxFaces=5,
@@ -219,21 +222,29 @@ def match():
 
         # Substring is searched in 'eks for geeks'
         position = authenticated_user.find('-', 0)
+        position_matric = authenticated_user.find(':', 0)
         length = len(authenticated_user)
 
-        matric = authenticated_user[0:position]
-        name = authenticated_user[position + 1:length]
+        uid = authenticated_user[0:position]
+        name = authenticated_user[position + 1:position_matric]
+        matric = authenticated_user[position_matric + 1:length]
+
         fullname = name.replace("_", " ")
 
-        print("Welcome, " + fullname + ". Enjoy learning!")
+        print("Welcome, " + fullname + ". Enjoy learning! ")
 
         # username = "Chiew Jia Jing"
         f = open('/lib/security/howdy/username.txt', "w+")
-        f.write(fullname)
+        f.write(authenticated_user + "\n")
         f.close()
+
+
+
+
 
         timings["used"] = time.time() - timings["st"]
         print(str(round(timings["used"], 2)) + " seconds used")
+
         stop(0)
 
     else:

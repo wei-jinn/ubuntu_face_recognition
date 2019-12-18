@@ -3,7 +3,7 @@
 import csv
 import boto3
 
-with open('admin2_credentials.csv', 'r') as input:
+with open('/home/weijin/PycharmProjects/testhowdy/cli/admin2_credentials.csv', 'r') as input:
     next(input)
     reader = csv.reader(input)
     for line in reader:
@@ -21,7 +21,7 @@ client = boto3.client('rekognition',
 # )
 #
 # print(response)
-#
+
 # response = client.describe_collection(
 #     CollectionId='c3'
 # )
@@ -31,9 +31,9 @@ client = boto3.client('rekognition',
 # response = client.delete_collection(
 #     CollectionId='c3'
 # )
-
+#
 # print(response)
-
+#
 response = client.list_faces(
     CollectionId='c3'
 )
@@ -42,6 +42,7 @@ print(response)
 # response = client.delete_faces(
 #     CollectionId='c3',
 #     FaceIds=[
-#     '92c33a7d-04f8-4d53-8020-e1f9a256543f',
+#     '06933047-eb4f-4cb1-a071-5e327ff89ead',
+# '144700ad-aef6-422a-97fc-145b67e0cf77'
 #     ]
 # )
