@@ -51,6 +51,23 @@ def doAuth(pamh):
 	# Status 12 means we aborted
 	elif status == 12:
 		return pamh.PAM_AUTH_ERR
+
+	elif status == 13:
+		pamh.conversation(pamh.Message(pamh.PAM_ERROR_MSG, "You are unidentified"))
+		return pamh.PAM_AUTH_ERR
+
+	elif status == 14:
+		pamh.conversation(pamh.Message(pamh.PAM_ERROR_MSG, "Multiple face detected. Please try again."))
+		return pamh.PAM_AUTH_ERR
+
+	elif status == 15:
+		pamh.conversation(pamh.Message(pamh.PAM_ERROR_MSG, "No face detected. Please try again."))
+		return pamh.PAM_AUTH_ERR
+
+	elif status == 16:
+		pamh.conversation(pamh.Message(pamh.PAM_ERROR_MSG, "No camera found. Please connect to a camera device."))
+		return pamh.PAM_AUTH_ERR
+
 	# Status 0 is a successful exit
 	elif status == 0:
 		# Show the success message if it isn't suppressed

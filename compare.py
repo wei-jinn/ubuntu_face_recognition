@@ -138,7 +138,7 @@ def match():
 
         if frames == 1 and ret is False:
             print("Could not read from camera")
-            exit(12)
+            exit(16)
 
         gsframe = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
@@ -155,8 +155,8 @@ def match():
         frames += 1
         print(frames)
 
-        if frames > 50:
-            stop(11)
+        if frames > 20:
+            stop(15)
 
         # Get all faces from that frame as encodings
         face_locations = face_detector(gsframe, 1)
@@ -174,10 +174,10 @@ def match():
     # If more than 1 faces are detected we can't know wich one belongs to the user
     if len(face_locations) > 1:
         print("Multiple faces detected, aborting")
-        sys.exit(1)
+        sys.exit(14)
     elif not face_locations:
         print("No face detected, aborting")
-        sys.exit(1)
+        sys.exit(15)
 
     with open('/home/weijin/PycharmProjects/testhowdy/cli/admin2_credentials.csv', 'r') as input:
         next(input)
@@ -209,7 +209,7 @@ def match():
     # print(response)
     if(response['FaceMatches'] == []):
         print("You are unidentified. Authentication failed.")
-        sys.exit(1)
+        sys.exit(13)
 
     elif(response['SearchedFaceConfidence'] > 90):
         print("Similarity: " + str(response['FaceMatches'][0]['Similarity']))
