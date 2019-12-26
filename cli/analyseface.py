@@ -200,7 +200,7 @@ video_capture.release()
 # video_capture.grab()
 pid = 0
 
-def receive_signal(signum, stack):
+def signal_pause(signum, stack):
     print ('Received:', signum)
     print("I got your signal, let me sleep awhile")
     video_capture.release()
@@ -208,7 +208,7 @@ def receive_signal(signum, stack):
     # time.sleep(20)
 
 
-def signal_start(signum, stack):
+def signal_restart(signum, stack):
 
     print("Let's go back to work")
     time.sleep(1)
@@ -216,8 +216,8 @@ def signal_start(signum, stack):
 
 
 
-signal.signal(signal.SIGUSR1, receive_signal)
-signal.signal(signal.SIGUSR2, signal_start)
+signal.signal(signal.SIGUSR1, signal_pause)
+signal.signal(signal.SIGUSR2, signal_restart)
 
 try:
         while True:

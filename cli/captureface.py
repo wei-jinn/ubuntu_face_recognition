@@ -20,7 +20,7 @@ import boto3
 # Try to import dlib and give a nice error if we can't
 # Add should be the first point where import issues show up
 
-os.system('pkill -9 -f analyseface.py')
+os.system("ps -ef | grep analyseface.py | head -1| awk '{print $2}' | xargs kill -USR1 ")
 
 timings = {
 	"st": time.time()
@@ -68,10 +68,10 @@ def stop(status):
     video_capture.release()
     sys.exit(status)
 
-if os.path.isfile('/home/weijin/PycharmProjects/testhowdy/cli/photo/addface.jpg'):
-
+# if os.path.isfile('/home/weijin/PycharmProjects/testhowdy/cli/photo/addface.jpg'):
+if os.path.isfile('/home/weijin/PhpstormProjects/whiteboard_laravel/storage/app/public/testhowdy/cli/photo/addface.jpg'):
     # print ("Previous file exists", flush=True)
-    os.remove('/home/weijin/PycharmProjects/testhowdy/cli/photo/addface.jpg')
+    os.remove('/home/weijin/PhpstormProjects/whiteboard_laravel/storage/app/public/testhowdy/cli/photo/addface.jpg')
     # print('Cleared',  flush=True)
 
 
@@ -137,11 +137,13 @@ while frames < 15:
     # If we've found at least one, we can continue
     if face_locations:
             # print("\nFace detected! Authenticating...",  flush=True)
-            cv2.imwrite("/home/weijin/PycharmProjects/testhowdy/cli/photo/addface.jpg", frame)
+            cv2.imwrite("/home/weijin/PhpstormProjects/whiteboard_laravel/storage/app/public/testhowdy/cli/photo/addface.jpg", frame)
             print('Face captured' + '\n',  flush=True)
             break
 
 video_capture.release()
+os.system("ps -ef | grep analyseface.py | head -1| awk '{print $2}' | xargs kill -USR2 ")
+
 
 # timings["used"] = time.time() - timings["st"]
 # print(str(round(timings["used"], 2)) + " seconds used",  flush=True)
@@ -150,10 +152,13 @@ video_capture.release()
 
 if len(face_locations) > 1:
     print("Multiple faces detected, aborting")
+    os.system("ps -ef | grep analyseface.py | head -1| awk '{print $2}' | xargs kill -USR2 ")
+
     sys.exit(1)
 
 elif not face_locations:
     print("No face detected, aborting")
+    os.system("ps -ef | grep analyseface.py | head -1| awk '{print $2}' | xargs kill -USR2 ")
     sys.exit(1)
 
 # with open('/home/weijin/PycharmProjects/testhowdy/cli/admin2_credentials.csv', 'r') as input:

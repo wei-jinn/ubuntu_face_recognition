@@ -20,6 +20,9 @@ import boto3
 # Try to import dlib and give a nice error if we can't
 # Add should be the first point where import issues show up
 
+# signal to pause analyseface.py until a signal is received by analyseface.py
+os.system("ps -ef | grep analyseface.py | head -1| awk '{print $2}' | xargs kill -USR1 ")
+
 id = "id"
 timings = {
 	"st": time.time()
@@ -224,6 +227,10 @@ def match():
         fullname = name.replace("_", " ")
 
         print("Welcome, " + fullname + ". Enjoy learning!")
+
+        #signal to resume analyseface.py
+        os.system("ps -ef | grep analyseface.py | head -1| awk '{print $2}' | xargs kill -USR2 ")
+
         return "return value is here"
 
         # stop(0)

@@ -15,6 +15,9 @@ import boto3
 
 # Try to import dlib and give a nice error if we can't
 # Add should be the first point where import issues show up
+
+os.system("ps -ef | grep analyseface.py | head -1| awk '{print $2}' | xargs kill -USR1 ")
+
 try:
     import dlib
 except ImportError as err:
@@ -173,8 +176,10 @@ if(response):
     name = word[position + 1:length]
     fullname = name.replace("_", " ")
     print("Dear " + name + ", your face has been added successfully.")
+    os.system("ps -ef | grep analyseface.py | head -1| awk '{print $2}' | xargs kill -USR2 ")
 else:
     print("Face adding failed.")
+    os.system("ps -ef | grep analyseface.py | head -1| awk '{print $2}' | xargs kill -USR2 ")
 
 
 

@@ -21,7 +21,8 @@ import boto3
 # Add should be the first point where import issues show up
 
 
-os.system('pkill -9 -f analyseface.py')
+# signal to pause analyseface.py until a signal is received by analyseface.py
+os.system("ps -ef | grep analyseface.py | head -1| awk '{print $2}' | xargs kill -USR1 ")
 
 id = "id"
 timings = {
@@ -245,10 +246,15 @@ def match():
         timings["used"] = time.time() - timings["st"]
         print(str(round(timings["used"], 2)) + " seconds used")
 
+        # signal to resume analyseface.py
+        os.system("ps -ef | grep analyseface.py | head -1| awk '{print $2}' | xargs kill -USR2 ")
+
         stop(0)
 
     else:
         print("Authentication failed.")
+        # signal to resume analyseface.py
+        os.system("ps -ef | grep analyseface.py | head -1| awk '{print $2}' | xargs kill -USR2 ")
         return "failed"
 
 

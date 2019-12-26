@@ -16,7 +16,7 @@ client = boto3.client('rekognition',
                       aws_secret_access_key = secret_access_key,
                       region_name = 'us-east-2')
 
-# response = client.create_collection(
+# response = client.create_collectio
 #     CollectionId='c3'
 # )
 #

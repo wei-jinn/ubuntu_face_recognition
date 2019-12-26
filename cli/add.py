@@ -51,9 +51,9 @@ else:
 pose_predictor = dlib.shape_predictor(path + "/../dlib-data/shape_predictor_5_face_landmarks.dat")
 face_encoder = dlib.face_recognition_model_v1(path + "/../dlib-data/dlib_face_recognition_resnet_model_v1.dat")
 
-if os.path.isfile('photo/student.jpg'):
+if os.path.isfile('/home/weijin/PhpstormProjects/whiteboard_laravel/storage/app/public/testhowdy/cli/photo/addface.jpg'):
     print ("Previous file exists")
-    os.remove('photo/student.jpg')
+    os.remove('/home/weijin/PhpstormProjects/whiteboard_laravel/storage/app/public/testhowdy/cli/photo/addface.jpg')
     print('Cleared')
 else:
     print ("Previous file not exist")
@@ -118,7 +118,7 @@ while frames < 60:
     # If we've found at least one, we can continue
     if face_locations:
             print("\nFace detected! Indexing...")
-            cv2.imwrite("photo/student.jpg", frame)
+            cv2.imwrite("/home/weijin/PhpstormProjects/whiteboard_laravel/storage/app/public/testhowdy/cli/photo/addface.jpg", frame)
             break
 
 video_capture.release()
