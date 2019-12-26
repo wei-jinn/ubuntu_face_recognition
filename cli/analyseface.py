@@ -27,6 +27,10 @@ import dlib
 # Add should be the first point where import issues show up
 
 authenticated_user = "authenticated_user"
+uid = ""
+name = ""
+student_id = ""
+fullname = ""
 
 # try:
 #     import dlib
@@ -184,12 +188,15 @@ elif (response['SearchedFaceConfidence'] > 99):
     # Substring is searched in 'eks for geeks'
     position = authenticated_user.find('-', 0)
     length = len(authenticated_user)
-
-    matric = int(authenticated_user[0:position])
-    name = authenticated_user[position + 1:length]
+    position_studentid = authenticated_user.find(':',0)
+    uid = int(authenticated_user[0:position])
+    name = authenticated_user[position + 1:position_studentid]
+    student_id = authenticated_user[position_studentid+1:length]
     fullname = name.replace("_", " ")
 
     print("Welcome, " + fullname + ". Enjoy learning!")
+    print("student_id :" + student_id )
+    print("uid :" , uid)
     # return authenticated_user
 
 else:
@@ -202,7 +209,7 @@ pid = 0
 
 def signal_pause(signum, stack):
     print ('Received:', signum)
-    print("I got your signal, let me sleep awhile")
+    print("Signal received, emotion analysis paused. Proceed to authentication")
     video_capture.release()
     signal.pause()
     # time.sleep(20)
@@ -210,7 +217,7 @@ def signal_pause(signum, stack):
 
 def signal_restart(signum, stack):
 
-    print("Let's go back to work")
+    print("Signal received, resume emotion analysis")
     time.sleep(1)
 
 
@@ -227,7 +234,7 @@ try:
             # Don't remove ret, it doesn't work without it
 
             video_capture = cv2.VideoCapture(config.get("video", "device_path"))
-            print(video_capture)
+
             # Set the frame width and height if requested
             fw = config.getint("video", "frame_width", fallback=-1)
             fh = config.getint("video", "frame_height", fallback=-1)
@@ -335,24 +342,44 @@ try:
                 emotions = response['FaceDetails'][0]['Emotions']
 
                 bubbleSort(emotions)
+
+                print('Student: ' + fullname + ' ' + student_id)
                 for i in range(len(emotions) - 1, -1, -1):
                     print((emotions[i]['Type']).lower() + " : " + str(round(emotions[i]['Confidence'],2)))
                 print(dateTimeObj)
+                print("Most likely you are " + emotions[7]['Type'])
 
 
-                # data = {'student_id':matric,
-                #         (emotions[0]['Type']).lower(): round(emotions[0]['Confidence'],2),
-                #         (emotions[1]['Type']).lower(): round(emotions[1]['Confidence'],2),
-                #         (emotions[2]['Type']).lower(): round(emotions[2]['Confidence'],2),
-                #         (emotions[3]['Type']).lower(): round(emotions[3]['Confidence'],2),
-                #         (emotions[4]['Type']).lower(): round(emotions[4]['Confidence'],2),
-                #         (emotions[5]['Type']).lower(): round(emotions[5]['Confidence'],2),
-                #         (emotions[6]['Type']).lower(): round(emotions[6]['Confidence'],2),
-                #         (emotions[7]['Type']).lower(): round(emotions[7]['Confidence'],2),
-                #         }
-                #
-                #
-                # print(data)
+                data = {'student_id':student_id,
+                        (emotions[0]['Type']).lower(): round(emotions[0]['Confidence'],2),
+                        (emotions[1]['Type']).lower(): round(emotions[1]['Confidence'],2),
+                        (emotions[2]['Type']).lower(): round(emotions[2]['Confidence'],2),
+                        (emotions[3]['Type']).lower(): round(emotions[3]['Confidence'],2),
+                        (emotions[4]['Type']).lower(): round(emotions[4]['Confidence'],2),
+                        (emotions[5]['Type']).lower(): round(emotions[5]['Confidence'],2),
+                        (emotions[6]['Type']).lower(): round(emotions[6]['Confidence'],2),
+                        (emotions[7]['Type']).lower(): round(emotions[7]['Confidence'],2),
+                        }
+
+                data2 = {'student_id': student_id,
+                        (emotions[0]['Type']).lower(): round(emotions[0]['Confidence'], 2),
+                        (emotions[1]['Type']).lower(): round(emotions[1]['Confidence'], 2),
+                        (emotions[2]['Type']).lower(): round(emotions[2]['Confidence'], 2),
+                        (emotions[3]['Type']).lower(): round(emotions[3]['Confidence'], 2),
+                        (emotions[4]['Type']).lower(): round(emotions[4]['Confidence'], 2),
+                        (emotions[5]['Type']).lower(): round(emotions[5]['Confidence'], 2),
+                        (emotions[6]['Type']).lower(): round(emotions[6]['Confidence'], 2),
+                        (emotions[7]['Type']).lower(): round(emotions[7]['Confidence'], 2),
+                         'most_likely': emotions[7]['Type']
+                        }
+
+
+                s = requests.post(url='https://pure-headland-78653.herokuapp.com/api/resources/updateStudentEmotion', data=data)
+
+
+                r = requests.post(url='http://127.0.0.1:8000/emotion', data=data2)
+                print(r)
+                print(data)
 
 
 
@@ -366,16 +393,8 @@ try:
                 # print(obj)
                 # print(authenticated_user)
 
-                # # data to be sent to api
-                # data = {'api_dev_key': API_KEY,
-                #         'api_option': 'paste',
-                #         'api_paste_code': source_code,
-                #         'api_paste_format': 'python'}
-                #
-                # sending post request and saving response as response object
 
-                # r = requests.post(url='https://pure-headland-78653.herokuapp.com/api/resources/emotion', data=data)
-                # print(r)
+
 
                 # g = requests.get(url='https://pure-headland-78653.herokuapp.com/api/resources/emotion')
                 # getdata = g.json()

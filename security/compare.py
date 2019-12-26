@@ -8,6 +8,7 @@
 import time
 import os
 import sys
+from datetime import datetime
 import json
 import configparser
 import builtins
@@ -22,6 +23,8 @@ import boto3
 
 
 # signal to pause analyseface.py until a signal is received by analyseface.py
+import requests
+
 os.system("ps -ef | grep analyseface.py | head -1| awk '{print $2}' | xargs kill -USR1 ")
 
 id = "id"
@@ -229,6 +232,7 @@ def match():
         uid = authenticated_user[0:position]
         name = authenticated_user[position + 1:position_matric]
         matric = authenticated_user[position_matric + 1:length]
+        dateTimeObj = datetime.now()
 
         fullname = name.replace("_", " ")
 
@@ -239,15 +243,26 @@ def match():
         f.write(authenticated_user + "\n")
         f.close()
 
-
-
-
-
         timings["used"] = time.time() - timings["st"]
         print(str(round(timings["used"], 2)) + " seconds used")
 
+
+
         # signal to resume analyseface.py
         os.system("ps -ef | grep analyseface.py | head -1| awk '{print $2}' | xargs kill -USR2 ")
+
+        matric_data = {'student_id':matric,
+                       'starting_date_time': dateTimeObj
+                }
+
+        sendmatric = requests.post(url='https://pure-headland-78653.herokuapp.com/api/resources/updateAttendance', data=matric_data)
+        print(sendmatric)
+
+        uid_data = {'id': uid
+        			   }
+
+        sendmatric = requests.post(url='https://pure-headland-78653.herokuapp.com/api/resources/emotion', data=matric_data)
+        print(sendmatric)
 
         stop(0)
 
